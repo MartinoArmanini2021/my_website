@@ -172,22 +172,22 @@ disqusShortname = ""
     # by copying the corresponding map with frontmatter code.
     [[params.contact.email]]
     title = "Email"
-    email = "example@domain.com"
+    email = "marmanini.mam2021@london.edu"
 
     [[params.contact.phone]]
     title = "Phone"
     phone = "(000) 000-0000 x1234"
 
     [[params.contact.address]]
-    title = "Address"
-    street = "Street"
-    city = "City, ST 00000"
-    country = "Country"
+#    title = "Address"
+#    street = "Street"
+#    city = "City, ST 00000"
+#    country = "Country"
 
   # Footer section
   [params.footer]
-    enable = true
-    copyright = "Company Name"
+#    enable = true
+#    copyright = "Company Name"
 
     # Uses font awesome icons
     [[params.footer.social]]
