@@ -1,7 +1,7 @@
 # Site settings
 baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "Forty"
+title = "Portfolio website of Martino Armanini"
 theme = "forty"
 
 # Enter your tracking code to enable Google Analytics
@@ -19,8 +19,8 @@ disqusShortname = ""
   # CSS class.
 
   # Provide your metadata here.
-  name = "Your name"
-  description = "Your description"
+  name = "Martino Armanini"
+  description = "MAM student, graduating in 2021 and currently exploring R"
 
   # Link custom assets relative to /static
   custom_css = []
@@ -37,8 +37,8 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Forty"
-    subtitle = "By HTML5 Up"
+    title = "Martino Armaninni"
+    # subtitle = "By HTML5 Up"
     menu = "Menu"
     # Optional logo as brand stored in img/
     # logo = "logo.png"
@@ -47,13 +47,13 @@ disqusShortname = ""
       name = "Home"
       url = "#"
 
-    [[params.navigation.links]]
-      name = "Blogs"
-      url = "blogs"
+#    [[params.navigation.links]]
+#     name = "Blogs"
+#      url = "blogs"
 
-    [[params.navigation.links]]
-      name = "Generic Blog"
-      url = "blogs/ipsum"
+#    [[params.navigation.links]]
+#      name = "Generic Blog"
+#      url = "blogs/ipsum"
 
     [[params.navigation.links]]
       name = "Elements"
@@ -100,31 +100,31 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Tempus"
       subtitle = "Feugiat Amet Tempus"
-      image = "pic02.jpg"
+      image = "pic06.jpg"
       url = "blogs/tempus"
 
     [[params.tiles.showcase]]
       title = "Magna"
       subtitle = "Lorem Etiam Nullam"
-      image = "pic03.jpg"
+      image = "pic04.jpg"
       url = "blogs/magna"
 
     [[params.tiles.showcase]]
       title = "Ipsum"
       subtitle = "Nisl Sed Aliquam"
-      image = "pic04.jpg"
+      image = "pic05.jpg"
       url = "blogs/ipsum"
 
     [[params.tiles.showcase]]
       title = "Consequat"
       subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic05.jpg"
+      image = "pic02.jpg"
       url = "blogs/ipsum"
 
     [[params.tiles.showcase]]
       title = "Etiam"
       subtitle = "Feugiat Amet Tempus"
-      image = "pic06.jpg"
+      image = "pic03.jpg"
       url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
