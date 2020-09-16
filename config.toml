@@ -37,11 +37,11 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Martino Armaninni"
-    # subtitle = "By HTML5 Up"
+    title = "Martino Armanini"
+    subtitle = "LBS - MAM 2021"
     menu = "Menu"
-    # Optional logo as brand stored in img/
-    # logo = "logo.png"
+    Optional logo as brand stored in img/
+    logo = "logo.png"
 
     [[params.navigation.links]]
       name = "Home"
