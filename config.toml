@@ -92,8 +92,8 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "Chapter 5"
-      subtitle = "From ModernDrive"
+      title = "The exeercises from Chapter 5"
+      subtitle = "By ModernDrive"
       image = "pic01.jpg"
       url = "blogs/aliquam"
 
