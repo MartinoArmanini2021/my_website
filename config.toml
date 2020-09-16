@@ -81,8 +81,8 @@ disqusShortname = ""
   [params.banner]
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
-    title = "Hi, my name is Martino Armanini"
-    subtitle = "THIS IS MY R PORTFOLIO"
+    title = "Hi, I'm Martino Armanini"
+    subtitle = "My first R projects, for your delight!"
     buttonText = "Get a look"
 
 
@@ -92,8 +92,8 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "NY Masks"
-      subtitle = "Ipsum Dolor Sit Amet"
+      title = "Chapter 5"
+      subtitle = "From ModernDrive"
       image = "pic01.jpg"
       url = "blogs/aliquam"
 
@@ -138,13 +138,9 @@ disqusShortname = ""
   # Section Type Two
   [params.two]
     enable = true
-    title = "Massa libero"
-    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
-    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
-    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
-    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
-    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
-    buttonText = "Get Started"
+    title = "Who am I?"
+    subtitle = """I'm a student getting to know R during his Master's in LBS. Sorrounded by very capable ad driven peers, i'm tryig to get hold of the magic behind R. It's not easy but I hope you can enjoy the projects shown above. In case you need anythinng or you just want to get in touch, help yourself below!"""
+    buttonText = "Get in touch"
     url = "blogs"
 
 
