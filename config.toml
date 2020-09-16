@@ -37,10 +37,11 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-   # title = "M.A."
-  # subtitle = "LBS - MAM2021"
+    title = "LBS - MAM2021"
+    subtitle = "Portfolio website"
     menu = "Menu"
-    logo = "logo.png"
+    # Optional logo as brand stored in img/
+    # logo = "logo.png"
 
     [[params.navigation.links]]
       name = "Home"
