@@ -44,7 +44,17 @@
       <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
       
       <guid>/blogs/ipsum/</guid>
-      <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
+      <description> title: &amp;ldquo;Chapter 1&amp;rdquo; author: &amp;ldquo;Martino Armanini&amp;rdquo; date: &amp;ldquo;9/5/2020&amp;rdquo;
+slug: Project 1 output: word_document: default html_document: default pdf_document: default knitr::opts_chunk$set(echo = TRUE) #install.packages(&#39;knitr&#39;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;nycflights13&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;dplyr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;Rcmdr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) library(&amp;quot;knitr&amp;quot;) library(&amp;quot;nycflights13&amp;quot;) library(&amp;quot;dplyr&amp;quot;) library(&amp;quot;Rcmdr&amp;quot;) View(flights) airlines kable(airlines) airlines$name glimpse(airports) ?flights </description>
+    </item>
+    
+    <item>
+      <title>Ipsum</title>
+      <link>/blogs/blog5/</link>
+      <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
+      
+      <guid>/blogs/blog5/</guid>
+      <description>#install.packages(&amp;#39;knitr&amp;#39;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;nycflights13&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;dplyr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;Rcmdr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) library(&amp;quot;knitr&amp;quot;) library(&amp;quot;nycflights13&amp;quot;) library(&amp;quot;dplyr&amp;quot;) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union library(&amp;quot;Rcmdr&amp;quot;) ## Loading required package: splines ## Loading required package: RcmdrMisc ## Loading required package: car ## Loading required package: carData ## ## Attaching package: &amp;#39;car&amp;#39; ## The following object is masked from &amp;#39;package:dplyr&amp;#39;: ## ## recode ## Loading required package: sandwich ## Loading required package: effects ## Registered S3 methods overwritten by &amp;#39;lme4&amp;#39;: ## method from ## cooks.</description>
     </item>
     
   </channel>

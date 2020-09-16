@@ -7,20 +7,9 @@ description: ""
 draft: false
 image: pic10.jpg
 keywords: ""
-slug: ipsum
+slug: blog5
 title: Ipsum
 ---
----
-title: "Chapter 1"
-author: "Martino Armanini"
-date: "9/5/2020"
-# slug: Project 1
-output:
-  word_document: default
-  html_document: default
-  pdf_document: default
----
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -39,17 +28,9 @@ library("Rcmdr")
 ```
 
 ```{r exploring}
+glimpse(airmiles)
 
-View(flights)
+glimpse(flights)
 
-airlines
-
-kable(airlines)
-
-airlines$name
-
-glimpse(airports)
-
-?flights
 
 ```

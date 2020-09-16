@@ -1,0 +1,109 @@
+---
+title: "Chapter_2 Stats with R"
+author: "Martino Armanini"
+date: "9/5/2020"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r lib}
+library(nycflights13)
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+library(skimr)
+```
+
+```{r DF Al}
+alaska_flights <- flights %>% 
+  filter(carrier == "AS")
+
+skim(alaska_flights)
+```
+
+```{r scat}
+
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point()
+
+```
+```{r alaska gr}
+
+ggplot(alaska_flights, aes(x = arr_delay, y = air_time)) + 
+  geom_point(alpha=0.3)
+
+```
+
+```{r jit}
+
+ggplot(alaska_flights, aes(x = arr_delay, y = air_time)) + 
+  geom_jitter(height=20, width=30, alpha=0.3)
+
+```
+```{r jan}
+
+early_january_weather <- weather %>% 
+  filter(origin == "EWR" & month == 1 & day <= 15)
+
+ggplot(data = early_january_weather, 
+       mapping = aes(x = time_hour, y = temp)) +
+  geom_line(alpha=0.5)
+
+```
+
+```{r hist}
+
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 11, colour="yellow", fill="steelblue")+
+facet_wrap(~ month, nrow = 4)
+
+colours()
+
+
+```
+```{r temp}
+
+monthly_temp <- weather %>%
+  group_by(month) %>%
+  summarise(median_temp= median(temp))
+
+
+ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
+  geom_boxplot(colour="salmon3", fill="grey")
+
+```
+
+```{r column}
+library(nycflights13)
+library(kableExtra)
+
+ggplot(data = flights, mapping = aes(x = carrier)) +
+  geom_bar()
+
+
+```
+
+```{r two va}
+
+ggplot(data = flights, mapping = aes(x = carrier)) + 
+  geom_bar()
+
+ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+  geom_bar()
+
+```
+
+```{r sbs}
+
+ggplot(data = flights, mapping = aes(x = carrier, fill = origin)) +
+  geom_bar(position = position_dodge(preserve = "single"))
+
+```
+
+

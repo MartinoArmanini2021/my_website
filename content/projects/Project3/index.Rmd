@@ -1,0 +1,238 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T21:28:43-05:00"
+description: ""
+draft: false
+image: pic10.jpg
+keywords: ""
+# slug: project3
+title: Magna
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(tidyverse)
+library(moderndive)
+library(skimr)
+library(gapminder)
+```
+
+
+```{r}
+evals_ch5 <- evals %>%
+  select(ID, score, bty_avg, age)
+
+```
+
+
+```{r}
+
+glimpse(evals_ch5)
+
+```
+
+```{r}
+evals_ch5 %>%
+  sample_n(size=5)
+```
+
+```{r}
+evals_ch5 %>%
+  summarize(mean_bty_avg = mean(bty_avg), mean_score = mean(score),
+            median_bty_avg = median(bty_avg), median_score = median(score))
+
+evals_ch5
+```
+
+
+```{r}
+evals_ch5 %>%
+  select(score, bty_avg) %>%
+  skim()
+```
+
+
+```{r}
+evals_ch5 %>%
+  get_correlation(formula = score~bty_avg)
+
+evals_ch5 %>%
+  summarize(correlation = cor(score, bty_avg))
+
+```
+
+
+
+```{r}
+
+ggplot(evals_ch5, aes(x = bty_avg, y = score))+
+  geom_jitter(width=0.02, height = 0.02)+
+  geom_smooth(method = lm, se = F)+
+  labs(x = "Beauty average score",
+       y = "Teaching average score",
+       title = "Relationship between beauty and teaching")
+
+```
+ 
+```{r}
+evals_ch5 %>%
+  summarize(mean_bty_avg = mean(bty_avg), mean_age = mean(age),
+            median_bty_avg = median(bty_avg), median_age = median(age))
+
+evals_ch5
+```
+
+```{r}
+evals_ch5 %>%
+  select(age, bty_avg) %>%
+  skim()
+```
+
+
+```{r}
+
+evals_ch5 %>%
+  get_correlation(formula = age~bty_avg)
+
+evals_ch5 %>%
+  summarize(correlation = cor(age,bty_avg))
+
+
+evals_ch5 %>%
+  summarize(correlation = cor(age,score))
+
+
+```
+
+
+```{r}
+ggplot(evals_ch5, aes(x = age, y = bty_avg))+
+  geom_jitter()+
+  geom_smooth(method = lm, se=F)+
+  labs(x="age",
+       y="Average Beauty Score",
+       title = "Aging is not beautiful")
+```
+
+```{r}
+# Fit regression model:
+score_model <- lm(score ~ bty_avg, data = evals_ch5)
+# Get regression table:
+get_regression_table(score_model)
+```
+
+```{r}
+
+
+regression_points <- get_regression_points(score_model)
+
+regression_points
+
+```
+
+
+```{r}
+library(gapminder)
+
+gapminder_2007 <- gapminder %>%
+  filter(year == 2007) %>%
+  select(country, lifeExp, continent, gdpPercap)
+
+glimpse(gapminder_2007)
+
+skim(gapminder_2007)
+
+
+```
+
+```{r}
+
+gapminder_2007 %>%
+  select(lifeExp, continent) %>%
+  skim()
+
+
+
+```
+
+
+```{r}
+ggplot(gapminder_2007, aes(x=lifeExp)) +
+  geom_histogram(binwidth = 5, color = "white", fill = "salmon")+
+  labs(title = "Distribution of Life Expectancy across continents",
+       x = "Life Expectancy", y = "Number of countries")+
+  theme_dark()+
+  facet_wrap(~continent, nrow = 1)
+```
+
+
+```{r}
+
+ggplot(gapminder_2007, aes(x=continent, y = lifeExp, fill = continent))+
+  geom_boxplot()+
+  labs(x = "Continent",
+       y = "Life Expectancy",
+       title = "Distribution of Life Expectancy per continent")+
+  theme_get()
+
+
+```
+
+
+```{r}
+lifeExp_per_continent <- gapminder_2007 %>%
+  group_by(continent) %>%
+  summarize(mean = mean(lifeExp),
+            median = median(lifeExp))
+
+lifeExp_per_continent
+
+```
+
+
+```{r}
+lifeExp_model <- lm(lifeExp ~ continent, data = gapminder_2007)
+
+get_regression_table(lifeExp_model)
+
+
+```
+
+
+
+```{r}
+gap_regression_points <- get_regression_points(lifeExp_model, ID = "country")
+
+gap_regression_points
+
+```
+
+```{r}
+
+min_lifeExp <- gap_regression_points %>%
+  arrange(residual)
+
+head(min_lifeExp, n=10)
+
+
+```
+
+```{r}
+max_lifeExp <- gap_regression_points %>%
+  arrange(desc(residual))
+
+head(max_lifeExp, n=10)
+
+
+```
+
+
+
+
+
+

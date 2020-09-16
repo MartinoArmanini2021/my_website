@@ -1,0 +1,69 @@
+---
+title: "Chapter 1"
+author: "Martino Armanini"
+date: "9/5/2020"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+
+
+<pre class="r"><code>#install.packages(&#39;knitr&#39;, repos = &quot;http://cran.us.r-project.org&quot;)
+#install.packages(&quot;nycflights13&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
+#install.packages(&quot;dplyr&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
+#install.packages(&quot;Rcmdr&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
+
+library(&quot;knitr&quot;)
+library(&quot;nycflights13&quot;)
+library(&quot;dplyr&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(&quot;Rcmdr&quot;)</code></pre>
+<pre><code>## Loading required package: splines</code></pre>
+<pre><code>## Loading required package: RcmdrMisc</code></pre>
+<pre><code>## Loading required package: car</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## Loading required package: sandwich</code></pre>
+<pre><code>## Loading required package: effects</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;lme4&#39;:
+##   method                          from
+##   cooks.distance.influence.merMod car 
+##   influence.merMod                car 
+##   dfbeta.influence.merMod         car 
+##   dfbetas.influence.merMod        car</code></pre>
+<pre><code>## lattice theme set by effectsTheme()
+## See ?effectsTheme for details.</code></pre>
+<pre><code>## Warning in fun(libname, pkgname): couldn&#39;t connect to display &quot;:0&quot;</code></pre>
+<pre><code>## The Commander GUI is launched only in interactive sessions</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Rcmdr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     errorCondition</code></pre>
+<pre class="r"><code># View(flights)
+
+
+glimpse(airports)</code></pre>
+<pre><code>## Rows: 1,458
+## Columns: 8
+## $ faa   &lt;chr&gt; &quot;04G&quot;, &quot;06A&quot;, &quot;06C&quot;, &quot;06N&quot;, &quot;09J&quot;, &quot;0A9&quot;, &quot;0G6&quot;, &quot;0G7&quot;, &quot;0P2&quot;, …
+## $ name  &lt;chr&gt; &quot;Lansdowne Airport&quot;, &quot;Moton Field Municipal Airport&quot;, &quot;Schaumbu…
+## $ lat   &lt;dbl&gt; 41.13047, 32.46057, 41.98934, 41.43191, 31.07447, 36.37122, 41.…
+## $ lon   &lt;dbl&gt; -80.61958, -85.68003, -88.10124, -74.39156, -81.42778, -82.1734…
+## $ alt   &lt;dbl&gt; 1044, 264, 801, 523, 11, 1593, 730, 492, 1000, 108, 409, 875, 1…
+## $ tz    &lt;dbl&gt; -5, -6, -6, -5, -5, -5, -5, -5, -5, -8, -5, -6, -5, -5, -5, -5,…
+## $ dst   &lt;chr&gt; &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;U&quot;, &quot;A&quot;, &quot;A&quot;, &quot;U&quot;, &quot;A&quot;…
+## $ tzone &lt;chr&gt; &quot;America/New_York&quot;, &quot;America/Chicago&quot;, &quot;America/Chicago&quot;, &quot;Amer…</code></pre>
