@@ -37,8 +37,8 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Martino Armanini"
-    subtitle = "LBS - MAM 2021"
+    title = "M.A."
+    subtitle = "LBS-MAM2021"
     menu = "Menu"
     logo = "logo.png"
 
