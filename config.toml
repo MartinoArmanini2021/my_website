@@ -38,7 +38,7 @@ disqusShortname = ""
   # Navigation Section
   [params.navigation]
     title = "M.A."
-    subtitle = "LBS-MAM2021"
+    subtitle = "LBS - MAM2021"
     menu = "Menu"
     logo = "logo.png"
 
