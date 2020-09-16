@@ -20,7 +20,7 @@ disqusShortname = ""
 
   # Provide your metadata here.
   name = "Martino Armanini"
-  description = "MAM student, graduating in 2021 and currently exploring R"
+  description = "LBS MAM student, graduating in 2021 and currently exploring R"
 
   # Link custom assets relative to /static
   custom_css = []
