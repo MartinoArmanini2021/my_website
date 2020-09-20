@@ -5,7 +5,7 @@ categories:
 date: "2017-10-31T21:28:43-05:00"
 description: ""
 draft: false
-image: pic11.jpg
+image: pic11.jpeg
 keywords: ""
 slug: blog1
 title: Car Manufacturers in the NYSE
