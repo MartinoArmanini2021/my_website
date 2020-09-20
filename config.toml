@@ -104,10 +104,10 @@ disqusShortname = ""
       url = "blogs/blog7"
 
     [[params.tiles.showcase]]
-    title = "Magna - Project 3"
-     subtitle = "Chap 5"
+    title = "What about the Gender Pay Gap?"
+     subtitle = "Explaining the social tabu"
      image = "pic04.jpg"
-     url = "projects/Project3"
+     url = "blogs/blog3"
 
 #    [[params.tiles.showcase]]
 #      title = "Ipsum"
@@ -115,17 +115,17 @@ disqusShortname = ""
 #      image = "pic05.jpg"
 #      url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "Consequat"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic02.jpg"
-      url = "blogs/ipsum"
+#    [[params.tiles.showcase]]
+#      title = "Consequat"
+#      subtitle = "Ipsum Dolor Sit Amet"
+#      image = "pic02.jpg"
+#      url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "Etiam"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic03.jpg"
-      url = "blogs/ipsum"
+ #   [[params.tiles.showcase]]
+#      title = "Etiam"
+#      subtitle = "Feugiat Amet Tempus"
+#      image = "pic03.jpg"
+#      url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
   [params.blog]

@@ -1,0 +1,325 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T21:28:43-05:00"
+description: ""
+draft: false
+image: pic07.jpeg 
+keywords: ""
+slug: blog3
+title: What pay discrimination looks like, for real
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(ggpubr)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(kableExtra)
+library(vroom)
+library(leaflet)
+library(moderndive)
+library(car)
+library(huxtable)
+library(ggfortify)
+library(rsample)
+
+custom_kbl <- function(data, caption = NULL, digits = 2) {
+  knitr::kable(data, caption = caption, align = "l", format.args = list(decimal.mark = ".", big.mark = ","), digits = digits) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+}
+
+```
+
+
+## Pay discrimination as a social issue
+
+
+In the recent years, pay discrimination and specifically gender discrimination has been raised a **very relevant** social issue.
+
+Today, we'll try to look into it in more detail though the lens of Omega Group Plc. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted.
+
+The objective is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor.
+
+Let's load the data for starters
+
+```{r}
+omega <- read_csv(here::here("data", "omega.csv"))
+glimpse(omega) # examine the data frame
+```
+
+
+```{r}
+skim(omega)
+```
+
+We notice that no values are missing and that the values for gender, salary and experience seem reasonable.
+
+
+## Salary determinded by gender?
+
+The data frame `omega` contains the salaries for the sample of 50 executives in the company, as seen in the skim code. Let’s find out if we can conclude that there is a significant difference between the salaries of the male and female executives.
+
+First, let’s have a look at summary statistics, boxplots and confidence intervals:
+
+```{r}
+# Summary Statistics of salary by gender
+mosaic::favstats(salary ~ gender, data=omega) %>% 
+  kbl(caption = "Summary statistics on salary by gender") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+
+```
+
+```{r}
+# plot boxplots
+omega %>% 
+  ggplot(aes(x = gender, y = salary)) +
+  geom_boxplot() + # boxplot of salary per male/female
+  labs(title = "Men earn more than women!",
+       subtitle = "boxplots of salary per gender",
+       x = "") +
+  theme_bw()
+```
+
+
+```{r}
+# calculate CIs for gender male and female
+CI_omega <- omega %>% 
+  # group by gender and calculate mean, SD, sample size, t-critical value, SE and MoE
+  group_by(gender) %>% 
+  summarise(mean = mean(salary), # calculate average salary
+            SD = sd(salary), # calculate standard deviation
+            `sample size` = n(), # get the number of observations
+            `t-critical value` = qt(0.975, `sample size` - 1), # get t-critical value with (`sample size`-1) degrees of freedom
+            `standard error` =  SD/sqrt(`sample size`), # calculate standard error
+            `margin of error` = `t-critical value` * `standard error`, # calculate margin of error
+            `lower CI bound` = mean - `margin of error`, # calculate lower bound of the CI
+            `upper CI bound` = mean + `margin of error`) # calculate upper bound of the CI
+
+# print table with CIs
+CI_omega %>% 
+  kbl(caption = "95% confidence interval on average salary") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+```
+
+```{r}
+# plot CIs
+ggplot(CI_omega, aes(y=gender, x = mean, group = gender, color=gender)) +
+  #draws the means
+  geom_point(size = 5) +
+  #draws the CI error bars
+  geom_errorbar(aes(xmin=`lower CI bound`, xmax=`upper CI bound`), width=.1, size = 2) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "95% confidence intervals on salary by gender do not overlap",
+       y = "",
+       x = "salary")
+```
+
+As the two confidence intervals do not overlap, it seems that the difference is at least 95% statistically significant. Let us also conduct a hypothesis test.
+
+Our hypotheses are as follows:
+
+H0: mu_1 = mu_2, i.e. mean salaries are not different for men and women
+H1: mu_1 != mu_2, i.e. mean salaries are different for men and women
+
+Conducting a traditional t-test yields:
+
+```{r}
+t.test(salary ~ gender, data = omega)
+```
+
+As a result of the traditional test, we get a test statistic with t = -4 and a p-value of close to zero. This means that under the assumption of no difference in salary means (i.e. H0), there is only a very very small probability that we would have sampled our omega dataset or a more extreme set (with an even higher difference in salary means). Hence, our data strongly implies that there is a difference in salary means! Assuming a alpha level of 5% (t has to be <= -2), we thus reject H0.
+
+Let’s now see what the result of a simulation based test is:
+
+```{r}
+# calculate actual diff in means
+obs_diff <- omega %>%
+  specify(salary ~ gender) %>%
+  calculate(stat = "diff in means", order = c("male", "female")) # order male - female
+
+# simulate null distribution
+null_dist <- omega %>%
+  specify(salary ~ gender) %>%
+  # set null hypothesis (no difference between the two population means)
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>% # permute for hypothesis testing
+  calculate(stat = "diff in means", order = c("male", "female"))
+
+# visualise p_value and null distribution
+null_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff, direction = "two-sided") +
+  theme_bw()
+
+```
+
+```{r}
+# print out p value
+null_dist %>%
+  get_p_value(obs_stat = obs_diff, direction = "two_sided") %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+```
+
+The p-value for the simulation based test is basically the same as the one for our traditional test. Hence, the same interpretation holds true.
+
+All in all, we can be quite certain that there really is a difference in mean salary between men and women. However, this does not mean that there is a direct causality between those two variables. It is possible that for example most women have less experience than men in this dataset, which would explain the lower average salary. Hence, it is still possible that there is no “real” gender pay gap. However, at the moment it looks like the gender pay gap is reality!
+
+## Salary determined by experience and gender?
+We want to dig deeper on the concerns we have just raised and have a look at the relationship between experience and gender.
+Indeed, the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average:
+
+```{r}
+favstats (experience ~ gender, data=omega) %>% 
+  kbl(caption = "summary statistics on experience by gender") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+```
+
+Let’s also have a look at boxplots and confidence intervals:
+
+```{r}
+# plot boxplots
+omega %>% 
+  ggplot(aes(x = gender, y = experience)) +
+  geom_boxplot() + # boxplot of experience per male/female
+  labs(title = "men at omega have more experience than women!",
+       subtitle = "boxplots of experience per gender",
+       x = "") +
+  theme_bw()
+```
+
+```{r}
+# calculate CIs for gender male and female
+CI_omega <- omega %>% 
+  # group by gender and calculate mean, SD, sample size, t-critical value, SE and MoE
+  group_by(gender) %>% 
+  summarise(mean = mean(experience), # calculate average
+            SD = sd(experience), # calculate standard deviation
+            `sample size` = n(), # get the number of observations
+            `t-critical value` = qt(0.975, `sample size` - 1), # get t-critical value with (`sample size`-1) degrees of freedom
+            `standard error` =  SD/sqrt(`sample size`), # calculate standard error
+            `margin of error` = `t-critical value` * `standard error`, # calculate margin of error
+            `lower CI bound` = mean - `margin of error`, # calculate lower bound of the CI
+            `upper CI bound` = mean + `margin of error`) # calculate upper bound of the CI
+
+# print table with CIs
+CI_omega %>% 
+  kbl(caption = "95% confidence intervals on average experience") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+```
+
+
+
+```{r}
+# plot CIs
+ggplot(CI_omega, aes(y=gender, x = mean, group = gender, color=gender)) +
+  #draws the means
+  geom_point(size = 5) +
+  #draws the CI error bars
+  geom_errorbar(aes(xmin=`lower CI bound`, xmax=`upper CI bound`), width=.1, size = 2) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "95% confidence intervals on experience by gender do not overlap",
+       y = "",
+       x = "experience")
+```
+
+As the two confidence intervals do not overlap, it seems that the difference is at least 95% statistically significant. Let us also conduct a hypothesis test.
+
+Our hypotheses are as follows:
+
+H0: mu_1 = mu_2, i.e. mean experiences are not different for men and women
+H1: mu_1 != mu_2, i.e. mean experiences are different for men and women
+
+Conducting a traditional t-test yields:
+```{r}
+t.test(experience ~ gender, data = omega)
+```
+
+As a result of the traditional test, we get a test statistic with t = -5 and a p-value of close to zero. This means that under the assumption of no difference in experience means (i.e. H0), there is only a very very small probability that we would have sampled our omega dataset or a more extreme set (with an even higher difference in experience means). Hence, our data strongly implies that there is a difference in experience means! Assuming a alpha level of 5% (t has to be <= -2), we thus reject H0.
+
+Let’s now see what the result of a simulation based test is:
+```{r}
+# calculate actual diff in means
+obs_diff <- omega %>%
+  specify(experience ~ gender) %>%
+  calculate(stat = "diff in means", order = c("male", "female")) # order male - female
+
+# simulate null distribution
+null_dist <- omega %>%
+  specify(experience ~ gender) %>%
+  # set null hypothesis (no difference between the two population means)
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>% # permute for hypothesis testing
+  calculate(stat = "diff in means", order = c("male", "female"))
+
+# visualise p_value and null distribution
+null_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff, direction = "two-sided") +
+  theme_bw()
+```
+
+```{r}
+# print out p value
+null_dist %>%
+  get_p_value(obs_stat = obs_diff, direction = "two_sided") %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) # have a nice HTML table
+```
+
+The p-value for the simulation based test is basically the same as the one for our traditional test. Hence, the same interpretation holds true.
+
+All in all, we can be quite certain that there really is a difference in mean experience between men and women.
+
+This could definitely explain why women are paid less than men!
+
+## Salary determined by experience?
+
+Due to our findings above, a more thorough analysis of the relationship between salary and experience is required before any conclusion can be drawn about whether there is any gender-based salary discrimination in the company.
+
+Hence, have a look at the following graphs:
+
+```{r}
+ggplot(omega, aes(x = experience, y = salary)) +
+  geom_point(aes(color = gender)) +
+  geom_smooth(method = lm, se = FALSE) +
+  theme_bw() +
+  labs(title = "higher experience means higher salary")
+```
+
+```{r}
+ggplot(omega, aes(x = experience, y = salary, color = gender)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  theme_bw() +
+  labs(title = "higher experience means higher salary")
+```
+
+This reinforces our reasoning above: Higher experience leads to a higher salary. But as the women in our dataset have overally less experience than the men, this also means that they are paid less. However, this is probably mainly due to the difference in experience.
+
+## What is the correlation betwee the data?
+
+Finally, let’s have a look at the following graph:
+
+```{r}
+omega %>% 
+  select(gender, experience, salary) %>% # order variables they will appear in ggpairs()
+  ggpairs(aes(colour=gender, alpha = 0.3)) + # create scatterplot and correlation matrix, color by gender
+  theme_bw()
+```
+
+Especially the salary vs experience scatterplot colored by gender is quite revealing: Looking only at experiences >0, we can clearly see that women are in general not paid less than men. The pattern between male / female is quite random, with sometimes men being paid better (given fixed experience) and sometimes women being paid better (given fixed experience). Hence, the gender pay gap seems to be disproved.
+
+However, there are quite some women with 0 experience. Those are also the ones that are paid least. As there are no men in our data with 0 experience, it is hard to tell if women with 0 experience are systematically discriminated.
