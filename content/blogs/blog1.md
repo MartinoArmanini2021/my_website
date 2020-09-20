@@ -7,7 +7,7 @@ description: ""
 draft: false
 image: pic11.jpg
 keywords: ""
-slug: blog6
+slug: blog1
 title: Car Manufacturers in the NYSE
 ---
 
