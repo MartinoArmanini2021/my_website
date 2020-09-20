@@ -8,7 +8,27 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(ggpubr)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
 library(kableExtra)
+library(vroom)
+library(leaflet)
+library(moderndive)
+library(car)
+library(huxtable)
+library(ggfortify)
+library(rsample)
 
 custom_kbl <- function(data, caption = NULL, digits = 2) {
   knitr::kable(data, caption = caption, align = "l", format.args = list(decimal.mark = ".", big.mark = ","), digits = digits) %>% 
@@ -26,7 +46,7 @@ If Lorenzo is right, I'll be working for free. If he's wrong, he'll give me a Fe
 
 First off, we must identify the ticker symbol for the companies we are interested in; Apple is known as AAPL, Microsoft as MSFT, McDonald's as MCD, etc. The file `nyse.csv` contains 508 stocks listed on the NYSE, their ticker `symbol`, `name`, the IPO  (Initial Public Offering) year, and the sector and industry the company is in.
 
-```{r load_nyse_data, message=FALSE, warning=FALSE}
+```{r load_nyse_data}
 nyse <- read_csv(here::here("data","nyse.csv"))
 ```
 
