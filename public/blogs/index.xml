@@ -56,14 +56,5 @@
       <description>Getting up in the air Flying is one of the comforts that we have all lost in the first months of 2020. It is for this reason that I have started looking into the cracks of the industry as soon as I had the chance and ability to manipulate data with R. I might have felt that doing this analysis would bring me closer to the feeling of freedom that I would have when taking a flight to another continent of country.</description>
     </item>
     
-    <item>
-      <title>Ipsum</title>
-      <link>/blogs/blog5/</link>
-      <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
-      
-      <guid>/blogs/blog5/</guid>
-      <description>#install.packages(&amp;#39;knitr&amp;#39;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;nycflights13&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;dplyr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;Rcmdr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) library(&amp;quot;knitr&amp;quot;) library(&amp;quot;nycflights13&amp;quot;) library(&amp;quot;dplyr&amp;quot;) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union library(&amp;quot;Rcmdr&amp;quot;) ## Loading required package: splines ## Loading required package: RcmdrMisc ## Loading required package: car ## Loading required package: carData ## ## Attaching package: &amp;#39;car&amp;#39; ## The following object is masked from &amp;#39;package:dplyr&amp;#39;: ## ## recode ## Loading required package: sandwich ## Loading required package: effects ## Registered S3 methods overwritten by &amp;#39;lme4&amp;#39;: ## method from ## cooks.</description>
-    </item>
-    
   </channel>
 </rss>
