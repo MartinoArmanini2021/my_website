@@ -98,10 +98,10 @@ disqusShortname = ""
       url = "blogs/blog1"
 
     [[params.tiles.showcase]]
-      title = "Project 2"
-      subtitle = "Chap 1 from textbook"
+      title = "Flying to Alaska"
+      subtitle = "Saving time on your travels"
       image = "pic06.jpg"
-      url = "blogs/blog5"
+      url = "blogs/blog7"
 
     [[params.tiles.showcase]]
     title = "Magna - Project 3"

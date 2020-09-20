@@ -1,0 +1,957 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T21:28:43-05:00"
+description: ""
+draft: false
+image: pic10.jpeg
+keywords: ""
+slug: blog7
+title: Behind the World Cup's results
+---
+
+
+
+<div id="getting-up-in-the-air" class="section level1">
+<h1>Getting up in the air</h1>
+<p>Flying is one of the comforts that we have all lost in the first months of 2020. It is for this reason that I have started looking into the cracks of the industry as soon as I had the chance and ability to manipulate data with R. I might have felt that doing this analysis would bring me closer to the feeling of freedom that I would have when taking a flight to another continent of country. Or maybe, I felt just very curious to know more specific details about a service that I have greatly enjoyed but I don’t really know in depth. I don’t really knwo why this topic attracted me so much, but, anyways, I felt very close to it.</p>
+<p>Anyways, here you’ll have a sneek peak in some of the most relevant data in the air travel business, specifically for the flights operated by Alaska flights.</p>
+<pre class="r"><code>alaska_flights &lt;- flights %&gt;% 
+  filter(carrier == &quot;AS&quot;)
+
+skim(alaska_flights)</code></pre>
+<table style='width: auto;'
+        class='table table-condensed'>
+<caption>
+(#tab:DF Al)Data summary
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+alaska_flights
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+714
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POSIXct
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+<th style="text-align:right;">
+empty
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:right;">
+whitespace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+carrier
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tailnum
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+origin
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dest
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2013.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+2013.00
+</td>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:left;">
+▁▁▇▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+month
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+6.41
+</td>
+<td style="text-align:right;">
+3.41
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+▇▆▆▆▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+day
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+15.79
+</td>
+<td style="text-align:right;">
+8.85
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:left;">
+▇▇▇▇▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_time
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1294.56
+</td>
+<td style="text-align:right;">
+565.66
+</td>
+<td style="text-align:right;">
+651
+</td>
+<td style="text-align:right;">
+717.75
+</td>
+<td style="text-align:right;">
+1805
+</td>
+<td style="text-align:right;">
+1825
+</td>
+<td style="text-align:right;">
+2205
+</td>
+<td style="text-align:left;">
+▇▁▁▇▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sched_dep_time
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1284.50
+</td>
+<td style="text-align:right;">
+551.95
+</td>
+<td style="text-align:right;">
+705
+</td>
+<td style="text-align:right;">
+720.00
+</td>
+<td style="text-align:right;">
+1815
+</td>
+<td style="text-align:right;">
+1825
+</td>
+<td style="text-align:right;">
+1835
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dep_delay
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+5.80
+</td>
+<td style="text-align:right;">
+31.36
+</td>
+<td style="text-align:right;">
+-21
+</td>
+<td style="text-align:right;">
+-7.00
+</td>
+<td style="text-align:right;">
+-3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+225
+</td>
+<td style="text-align:left;">
+▇▁▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr_time
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1564.89
+</td>
+<td style="text-align:right;">
+591.37
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1003.00
+</td>
+<td style="text-align:right;">
+2043
+</td>
+<td style="text-align:right;">
+2128
+</td>
+<td style="text-align:right;">
+2355
+</td>
+<td style="text-align:left;">
+▁▁▇▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sched_arr_time
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1595.30
+</td>
+<td style="text-align:right;">
+558.98
+</td>
+<td style="text-align:right;">
+1015
+</td>
+<td style="text-align:right;">
+1025.00
+</td>
+<td style="text-align:right;">
+2125
+</td>
+<td style="text-align:right;">
+2145
+</td>
+<td style="text-align:right;">
+2158
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr_delay
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+-9.93
+</td>
+<td style="text-align:right;">
+36.48
+</td>
+<td style="text-align:right;">
+-74
+</td>
+<td style="text-align:right;">
+-32.00
+</td>
+<td style="text-align:right;">
+-17
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:left;">
+▇▇▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+flight
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+12.19
+</td>
+<td style="text-align:right;">
+34.26
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7.00
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+915
+</td>
+<td style="text-align:left;">
+▇▁▁▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+air_time
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+325.62
+</td>
+<td style="text-align:right;">
+16.17
+</td>
+<td style="text-align:right;">
+277
+</td>
+<td style="text-align:right;">
+314.00
+</td>
+<td style="text-align:right;">
+324
+</td>
+<td style="text-align:right;">
+336
+</td>
+<td style="text-align:right;">
+392
+</td>
+<td style="text-align:left;">
+▁▇▇▂▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+distance
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2402.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+2402
+</td>
+<td style="text-align:right;">
+2402.00
+</td>
+<td style="text-align:right;">
+2402
+</td>
+<td style="text-align:right;">
+2402
+</td>
+<td style="text-align:right;">
+2402
+</td>
+<td style="text-align:left;">
+▁▁▇▁▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hour
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+12.62
+</td>
+<td style="text-align:right;">
+5.50
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7.00
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+minute
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+22.18
+</td>
+<td style="text-align:right;">
+6.58
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+20.00
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+▁▂▆▇▂
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: POSIXct</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:left;">
+min
+</th>
+<th style="text-align:left;">
+max
+</th>
+<th style="text-align:left;">
+median
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+time_hour
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2013-01-01 07:00:00
+</td>
+<td style="text-align:left;">
+2013-12-31 18:00:00
+</td>
+<td style="text-align:left;">
+2013-06-28 12:30:00
+</td>
+<td style="text-align:right;">
+714
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What, you are not importing any library?</strong></p>
+<p>Well, the answer is no, I’m not. In this case the data is inside a package called <code>nycflights13</code>. This countains all of the flights departing or arriving to NYC.</p>
+<p>As I pointed out, I will be taking into consideration only the flights operated by <strong>AS</strong>, Alaska Airlines, since I believe there is a great amount of variability in the travel time of these flights due to the unfavorable weather conditions.</p>
+<p>Let’s see if I’m right or wrong.</p>
+<div id="getting-a-feel-of-the-data-visually" class="section level2">
+<h2>Getting a feel of the data, visually</h2>
+<p>What is the thing that everybody hates? <strong>DELAYS!</strong> I have to start from there, there is no way around it.</p>
+<p>First I want to know if there is a relationship between the delay at the departure to the delay at the arrival. My obvious guess would be yes. But let’s look into it.</p>
+<pre class="r"><code>ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point() +
+  geom_smooth(method = lm) +
+  labs(title = &quot;If you get up early, you land early&quot;,
+       x = &quot;Delay at departure (mins)&quot;,
+       y = &quot;Delay at arrival (mins)&quot;)+
+  theme_bw()</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 5 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/scat-1.png" width="672" /></p>
+<p>This graphs looks more or lees as we expected, but we can’t make much of the points next to the origin. Let’s try <strong>jitting</strong> and <strong>fading!</strong></p>
+<pre class="r"><code>ggplot(alaska_flights, aes(x = dep_delay , y = arr_delay)) + 
+  geom_jitter(height=30, width=30, alpha=0.4) +
+  geom_smooth(method = lm)+
+  labs(title = &quot;If you get up early, you land early&quot;,
+       x = &quot;Delay at departure (mins)&quot;,
+       y = &quot;Delay at arrival (mins)&quot;)+
+  theme_economist()</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 5 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/alaska%20gr-1.png" width="672" /></p>
+<p>The result is not exacly the most insightful, but it’a a little bit clearer.</p>
+<p>Now, it’s time to visualize the relationship between <code>air_time</code> and the two types of delays:</p>
+<ul>
+<li><code>arr_delay</code></li>
+<li><code>dep_delay</code></li>
+</ul>
+<p>My hope is to achieve surprising results, especially in the relationship between departure delay and air time. Let’s get on with it!</p>
+<pre class="r"><code>ggplot(alaska_flights, aes(x = arr_delay, y = air_time)) + 
+  geom_jitter(height=20, width=30, alpha=0.3)+
+    geom_smooth(method = lm)+
+  labs(title = &quot;The longer you stay up, the later you arrive&quot;,
+       x = &quot;Delay at arrival (mins)&quot;,
+       y = &quot;Air time (mins)&quot;)+
+  theme_bw()</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 5 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/jit-1.png" width="672" /></p>
+<p>Well, well, well. here we have something that could go unseen. That is, the delay can have different reasons:</p>
+<ol style="list-style-type: decimal">
+<li>There is the first bunch of points on the left that are in quite a linear relationship. This meaning that the fact of staying in air has an infuence on the arrival delay</li>
+<li>The second group of data points are on the right of the 100min mark for the “Delay at arrival”. Even with a good air time, the flight has landed with delay. This indicates that the reason of the daly must be related to extra flight conditions. I t could be because of bad weather at the departure airport.</li>
+</ol>
+<p>Let’s now see the relationship between air time and delay at departure:</p>
+<pre class="r"><code>ggplot(alaska_flights, aes(x = dep_delay, y = air_time)) + 
+  geom_point(alpha=0.3)+
+    geom_smooth(method = lm)+
+  labs(title = &quot;Air time is fairly constant, despite departure delay&quot;,
+       x = &quot;Delay at departure (mins)&quot;,
+       y = &quot;Air time (mins)&quot;)+
+  theme_bw()</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 5 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/jan-1.png" width="672" /></p>
+<p>Above, we can see that the Air time is fairly constant, irrespective of the delay at the departure. We can say that pilots don’t rush to make up for the lost time!</p>
+</div>
+<div id="weather-influence" class="section level2">
+<h2>Weather influence</h2>
+<p>As we were pointing out before, one aspect that might really influence the efficiency of Alaska Airlines can be the weather. Let’s do some EDA on the conditions for the flights going there!</p>
+<p>Let’s begin by understanding the variation of temperatures by month. We do that simply by faceting. The outcome should be no surprise.</p>
+<pre class="r"><code>ggplot(data = weather, mapping = aes(x = temp)) +
+    geom_histogram(bins = 11, colour=&quot;yellow&quot;, fill=&quot;steelblue&quot;) +
+    facet_wrap(~ month, nrow = 4) +
+  labs(title = &quot;Temperature goes up and down&quot;,
+       x = &quot;Temperature (F)&quot;,
+       y = &quot;&quot;) +
+  theme_bw()</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/temperatures-1.png" width="672" /></p>
+<pre class="r"><code>monthly_temp &lt;- weather %&gt;%
+  group_by(month) %&gt;%
+  summarise(median_temp= median(temp))</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
+  geom_boxplot(colour=&quot;salmon3&quot;, fill=&quot;grey&quot;)+
+  labs(title = &quot;Temperature goes up and down&quot;,
+       x = &quot;Month&quot;,
+       y = &quot;Temperature&quot;)+
+  theme_bw()</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/temperatures-2.png" width="672" /></p>
+<p>From the graphs above we se a strong difference in temperatures from January to August and we are interested in seeing whether this will affect departure delays.</p>
+<p>In order to do so we do the following:</p>
+<pre class="r"><code>flights_jan &lt;- alaska_flights %&gt;%
+  filter(month == 1)
+
+flights_aug &lt;- alaska_flights %&gt;%
+  filter(month == 8)
+
+ggplot(data = flights_jan, mapping = aes(x = dep_delay)) +
+    geom_histogram(bins = 11, colour=&quot;black&quot;, fill=&quot;grey&quot;) +
+  labs(title = &quot;Distribution of Delays in January&quot;,
+       x = &quot;Delay Time&quot;,
+       y = &quot;&quot;) +
+  theme_bw()</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/delays%20in%20months-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = flights_aug, mapping = aes(x = dep_delay)) +
+    geom_histogram(bins = 11, colour=&quot;black&quot;, fill=&quot;grey&quot;) +
+  labs(title = &quot;Distribution of Delays in August&quot;,
+       x = &quot;Delay Time&quot;,
+       y = &quot;&quot;) +
+  theme_bw()</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/delays%20in%20months-2.png" width="672" /></p>
+<p>Well, after a careful analysis we can sey that there is a <strong>significant</strong> difference. The flights in January suffer delays up to +200min and have quite some other delays close to 50min. On the other hand, August flights encounter almost always an on-time departure. Moroever, the number of flights in departing in advance is far greater then compared to January.</p>
+<p>You could say that if you want to go to Alaska from NY, the best idea is to go during the summer and save yourself some time!</p>
+</div>
+</div>

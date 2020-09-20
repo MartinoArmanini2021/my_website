@@ -44,7 +44,7 @@ custom_kbl <- function(data, caption = NULL, digits = 2) {
 
 # Returns of financial automotive stocks 
 
-In this little reasearch, Lorenzo, an Italian patriot, has asked us to analyse the financial performances of the **automotive companies in the NYSE.** He firmly beleieves that *"the italians are better"* and , thus will be more attractive to the stock market. Thanks to this curiosity we will dive into the financial markets, we will search for the Automotive companies' stocks and compare them with a Risk and Return graph.
+In this little reasearch, Lorenzo, an Italian patriot, has asked us to analyse the financial performances of the **automotive companies in the NYSE.** He firmly beleieves that *"the italians are better"* and, thus will be more attractive to the stock market. Thanks to this curiosity we will dive into the financial markets, we will search for the Automotive companies' stocks and compare them with a Risk and Return graph.
 
 If Lorenzo is right, I'll be working for free. If he's wrong, he'll give me a Ferrari. A nice incentive to get my hands dirty with R.
 
