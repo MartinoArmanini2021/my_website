@@ -5,7 +5,7 @@ categories:
 date: "2017-10-31T21:28:43-05:00"
 description: ""
 draft: false
-image: pic07.jpeg 
+image: pic07.jpeg
 keywords: ""
 slug: blog3
 title: What pay discrimination looks like, for real
