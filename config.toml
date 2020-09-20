@@ -100,7 +100,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Flying to Alaska"
       subtitle = "Saving time on your travels"
-      image = "pic06.jpg"
+      image = "pic20.jpg"
       url = "blogs/blog7"
 
     [[params.tiles.showcase]]
