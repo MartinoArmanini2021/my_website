@@ -95,7 +95,7 @@ disqusShortname = ""
       title = "The NYSE Car Index"
       subtitle = "Car Manufacturers one against each other"
       image = "pic01.jpg"
-      url = "blogs/blog6"
+      url = "blogs/blog1"
 
     [[params.tiles.showcase]]
       title = "Project 2"
