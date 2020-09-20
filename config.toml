@@ -93,12 +93,12 @@ disqusShortname = ""
     
     [[params.tiles.showcase]]
       title = "The NYSE Car Index"
-      subtitle = "Car Manufacturers one against the other"
+      subtitle = "Car Manufacturers one against each other"
       image = "pic01.jpg"
       url = "projects/Car_Manufacturers"
 
     [[params.tiles.showcase]]
-      title = "Project 1"
+      title = "Project 2"
       subtitle = "Chap 1 from textbook"
       image = "pic06.jpg"
       url = "blogs/blog5"
