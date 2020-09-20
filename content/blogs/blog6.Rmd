@@ -7,7 +7,6 @@ description: ""
 draft: false
 image: pic11.jpg
 keywords: ""
-slug: blog6
 title: The NYSE Car Manufacturing competition
 ---
 ```{r setup, include=FALSE}
