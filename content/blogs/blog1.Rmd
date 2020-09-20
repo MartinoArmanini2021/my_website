@@ -5,9 +5,10 @@ categories:
 date: "2017-10-31T21:28:43-05:00"
 description: ""
 draft: false
-image: pic11.jpg
+image: pic11.jpeg
 keywords: ""
-title: The NYSE Car Manufacturing competition
+slug: blog1
+title: Car Manufacturers in the NYSE
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
