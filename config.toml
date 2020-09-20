@@ -100,14 +100,14 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Flying to Alaska"
       subtitle = "Saving time on your travels"
-      image = "pic20.jpg"
+      image = "pic06.jpg"
       url = "blogs/blog7"
 
     [[params.tiles.showcase]]
       title = "What about the Gender Pay Gap?"
       subtitle = "Explaining the social tabu"
-      image = "pic04.jpg"
-      url = "blogs/blog3"
+      image = "pic20.jpg"
+      url = "blogs/blog5"
 
 #    [[params.tiles.showcase]]
 #      title = "Ipsum"
