@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Car Manufacturers in the NYSE </title>
+      <link>/projects/blog6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/blog6/</guid>
+      <description>Returns of financial automotive stocks In this little reasearch, Lorenzo, an Italian patriot, has asked us to analyse the financial performances of the automotive companies in the NYSE. He firmly beleieves that “the italians are better” and , thus will be more attractive to the stock market. Thanks to this curiosity we will dive into the financial markets, we will search for the Automotive companies’ stocks and compare them with a Risk and Return graph.</description>
+    </item>
+    
+    <item>
       <title>Chapter_2 Stats with R</title>
       <link>/projects/project2/chapter_2statswithr/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

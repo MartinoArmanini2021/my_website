@@ -1,10 +1,82 @@
----
-title: "Car Manufacturers in the NYSE "
-author: "Martino Armanini"
-date: "9/20/2020"
-output: html_document
----
+<!DOCTYPE HTML>
+<html>
 
+    <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="LBS MAM student, graduating in 2021 and currently exploring R">
+	<meta name="author" content="Martino Armanini">
+	<meta name="generator" content="Hugo 0.74.3" />
+	<title>Car Manufacturers in the NYSE &middot; Portfolio website of Martino Armanini</title>
+	<!-- Stylesheets -->
+	
+	<link rel="stylesheet" href="/css/main.css"/>
+	
+	
+
+	
+
+	<!-- Custom Fonts -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="js/ie/html5shiv.js"></script>
+	<script src="js/ie/html5shiv.jsrespond.min.js"></script>
+	<![endif]-->
+</head>
+
+    <body>
+
+    <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+    <header id="header" class="alt">
+        <a href="/" class="logo"><strong>Martino Armanini</strong> <span>Portfolio website</span></a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+<!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            
+                <li><a href="/">Home</a></li>
+            
+                <li><a href="/elements.html">Elements</a></li>
+            
+
+        </ul>
+        <ul class="actions vertical">
+            
+                <li><a href="/blogs" class="button special fit">Get Started</a></li>
+            
+            
+        </ul>
+    </nav>
+
+        <!-- Main -->
+            <div id="main" class="alt">
+
+                
+                    <section id="one">
+                        <div class="inner">
+                            <header class="major">
+                                <h1>Car Manufacturers in the NYSE</h1>
+                            </header>
+                            
+                                <span class="image main"><img src="/img/blogs/pic11.jpeg" alt="" /></span>
+                            
+                            
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
@@ -15,15 +87,6 @@ output: html_document
 <p>If Lorenzo is right, I’ll be working for free. If he’s wrong, he’ll give me a Ferrari. A nice incentive to get my hands dirty with R.</p>
 <p>First off, we must identify the ticker symbol for the companies we are interested in; Apple is known as AAPL, Microsoft as MSFT, McDonald’s as MCD, etc. The file <code>nyse.csv</code> contains 508 stocks listed on the NYSE, their ticker <code>symbol</code>, <code>name</code>, the IPO (Initial Public Offering) year, and the sector and industry the company is in.</p>
 <pre class="r"><code>nyse &lt;- read_csv(here::here(&quot;data&quot;,&quot;nyse.csv&quot;))</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   symbol = col_character(),
-##   name = col_character(),
-##   ipo_year = col_character(),
-##   sector = col_character(),
-##   industry = col_character(),
-##   summary_quote = col_character()
-## )</code></pre>
 <p>Based on this dataset, we are first interested in the number of companies per sector.</p>
 <pre class="r"><code>companies_by_sector &lt;- nyse %&gt;%
   group_by(sector) %&gt;%
@@ -57,7 +120,7 @@ output: html_document
        x = &quot;number of companies&quot;,
        y = &quot;sector&quot;)+
   theme_clean()</code></pre>
-<p><img src="/projects/blog6_files/figure-html/companies_per_sector-1.png" width="672" />
+<p><img src="/blogs/blog1_files/figure-html/companies_per_sector-1.png" width="672" />
 One other thing we could do, for the purpouse of our research, is to group companies per <strong>industry</strong> since the Automotive does not figure in the <strong>sector</strong> analysis.</p>
 <p>Let’s see how this goes:</p>
 <pre class="r"><code>companies_by_industry &lt;- nyse %&gt;%
@@ -86,7 +149,7 @@ companies_by_industry</code></pre>
   labs(title = &quot;Choosing the right variables \ndetermines the quality of the graphs&quot;,
        x = &quot;number of companies&quot;,
        y = &quot;industry&quot;)</code></pre>
-<p><img src="/projects/blog6_files/figure-html/companies_per_industry-1.png" width="672" /></p>
+<p><img src="/blogs/blog1_files/figure-html/companies_per_industry-1.png" width="672" /></p>
 <p><strong>WOW!</strong> We can do nothing with this.</p>
 <p>Good to know then, in the future experiences in R I will take close attention to the <strong>variables</strong> I chose to create relevant and visually pleasing graphs. This is definitely one of them, and I’m keeping it just to teach myself a lesson.</p>
 <div id="the-car-manufacturers" class="section level2">
@@ -372,7 +435,7 @@ TSLA
   labs(title = &quot;Distribution of monthly returns per stock&quot;, 
        x = &quot;monthly returns&quot;) +
   theme(legend.position = &quot;none&quot;) # show no legend</code></pre>
-<p><img src="/projects/blog6_files/figure-html/density_monthly_returns-1.png" width="672" />
+<p><img src="/blogs/blog1_files/figure-html/density_monthly_returns-1.png" width="672" />
 We can see that deviation from 0.0 is strongest for Tesla (<code>TSLA</code>). Hence, the stock is highly volatile and thus the riskiest.
 Opposed to this, the stock of Toyota Motor (<code>TM</code>) is quite steady, with only small changes in monthly return. Hence, this stock
 is the least risky.</p>
@@ -391,7 +454,7 @@ is the least risky.</p>
   scale_y_continuous(labels = scales::percent) + # display y values as percentages
   theme(legend.position = &quot;none&quot;) # show no legend</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/projects/blog6_files/figure-html/risk_return_plot-1.png" width="672" /></p>
+<p><img src="/blogs/blog1_files/figure-html/risk_return_plot-1.png" width="672" /></p>
 <p>Our assumptions is confirmed: The higher the risk, the higher the return. But the most important thing when looking at stocks is the <strong>Proportion</strong> of return on the risk. For this specific reason I’ve created a regression line to compare the quality of the Car Manufacturer’s stocks in terms of returns per their respective risks.</p>
 <p>The <em>main results</em> are as follows:</p>
 <ul>
@@ -403,3 +466,60 @@ is the least risky.</p>
 </ul>
 </div>
 </div>
+
+                        </div>
+                    </section>
+            <!-- Disqus Inject -->
+                
+            </div>
+            
+        <!-- Footer -->
+            
+                <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <ul class="icons">
+                
+                    <li><a href="https://www.twitter.com" class="icon alt fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+                
+                    <li><a href="https://www.facebook.com" class="icon alt fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
+                
+                    <li><a href="https://www.instagram.com" class="icon alt fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+                
+                    <li><a href="https://www.github.com" class="icon alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                
+                    <li><a href="https://www.linkedin.com/in/martino-armanini-a6b90611a/" class="icon alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+                
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Tino Entreprise</li>
+                
+                <li>Design:  <a href="https://www.html5up.net">HTML5 UP</a></li>
+                
+            </ul>
+        </div>
+    </footer>
+
+            
+        </div>
+
+    <!-- Scripts -->
+        <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+
+    
+
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+
+    
+
+    
+
+    </body>
+</html>

@@ -39,13 +39,12 @@
     </item>
     
     <item>
-      <title>Ipsum</title>
-      <link>/blogs/ipsum/</link>
+      <title>Car Manufacturers in the NYSE</title>
+      <link>/blogs/blog1/</link>
       <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
       
-      <guid>/blogs/ipsum/</guid>
-      <description> title: &amp;ldquo;Chapter 1&amp;rdquo; author: &amp;ldquo;Martino Armanini&amp;rdquo; date: &amp;ldquo;9/5/2020&amp;rdquo;
-slug: Project 1 output: word_document: default html_document: default pdf_document: default knitr::opts_chunk$set(echo = TRUE) #install.packages(&#39;knitr&#39;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;nycflights13&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;dplyr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) #install.packages(&amp;quot;Rcmdr&amp;quot;, repos = &amp;quot;http://cran.us.r-project.org&amp;quot;) library(&amp;quot;knitr&amp;quot;) library(&amp;quot;nycflights13&amp;quot;) library(&amp;quot;dplyr&amp;quot;) library(&amp;quot;Rcmdr&amp;quot;) View(flights) airlines kable(airlines) airlines$name glimpse(airports) ?flights </description>
+      <guid>/blogs/blog1/</guid>
+      <description>Returns of financial automotive stocks In this little reasearch, Lorenzo, an Italian patriot, has asked us to analyse the financial performances of the automotive companies in the NYSE. He firmly beleieves that “the italians are better” and , thus will be more attractive to the stock market. Thanks to this curiosity we will dive into the financial markets, we will search for the Automotive companies’ stocks and compare them with a Risk and Return graph.</description>
     </item>
     
     <item>
