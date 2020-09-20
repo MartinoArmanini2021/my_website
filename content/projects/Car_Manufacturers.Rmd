@@ -1,0 +1,221 @@
+---
+title: "Car Manufacturers in the NYSE "
+author: "Martino Armanini"
+date: "9/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(kableExtra)
+
+custom_kbl <- function(data, caption = NULL, digits = 2) {
+  knitr::kable(data, caption = caption, align = "l", format.args = list(decimal.mark = ".", big.mark = ","), digits = digits) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+}
+
+```
+
+# Returns of financial automotive stocks 
+
+In this little reasearch, Lorenzo, an Italian patriot, has asked us to analyse the financial performances of the **automotive companies in the NYSE.** He firmly beleieves that *"the italians are better"* and , thus will be more attractive to the stock market. Thanks to this curiosity we will dive into the financial markets, we will search for the Automotive companies' stocks and compare them with a Risk and Return graph.
+
+If Lorenzo is right, I'll be working for free. If he's wrong, he'll give me a Ferrari. A nice incentive to get my hands dirty with R.
+
+
+First off, we must identify the ticker symbol for the companies we are interested in; Apple is known as AAPL, Microsoft as MSFT, McDonald's as MCD, etc. The file `nyse.csv` contains 508 stocks listed on the NYSE, their ticker `symbol`, `name`, the IPO  (Initial Public Offering) year, and the sector and industry the company is in.
+
+```{r load_nyse_data, message=FALSE, warning=FALSE}
+nyse <- read_csv(here::here("data","nyse.csv"))
+```
+
+Based on this dataset, we are first interested in the number of companies per sector.
+
+```{r companies_per_sector}
+
+companies_by_sector <- nyse %>%
+  group_by(sector) %>%
+  count() %>% # count the number of companies by sector
+  arrange(desc(n))
+
+companies_by_sector
+
+ggplot(companies_by_sector, aes(x = n, y = reorder(sector, n)))+
+  geom_col() + 
+  labs(title = "Finance and Costumer Services dominate the NYSE",
+       x = "number of companies",
+       y = "sector")+
+  theme_clean()
+
+```
+One other thing we could do, for the purpouse of our research, is to group companies per **industry** since the Automotive does not figure in the **sector** analysis.
+
+Let's see how this goes:
+
+```{r companies_per_industry}
+
+companies_by_industry <- nyse %>%
+  group_by(industry) %>%
+  count() %>% # count the number of companies by industry
+  arrange(desc(n))
+
+companies_by_industry
+
+ggplot(companies_by_industry, aes(x = n, y = reorder(industry, n)))+
+  geom_col() + 
+  labs(title = "Choosing the right variables \ndetermines the quality of the graphs",
+       x = "number of companies",
+       y = "industry")
+
+```
+
+**WOW!** We can do nothing with this.
+
+Good to know then, in the future experiences in R I will take close attention to the **variables** I chose to create relevant and visually pleasing graphs. This is definitely one of them, and I'm keeping it just to teach myself a lesson.
+
+
+## The car Manufacturers
+
+Next thing to do is to locate the companies that operate in the Automotive market. Through research, we have found the following:
+
+- General Motors (`GM`)
+- Ford Motor Company (`F`)
+- Honda Motor Company (`HMC`)
+- Fiat Crysler Automobiles (`FCAU`)
+- Tesla (`TSLA`)
+- Ferrari(`RACE`)
+- Toyota Motor Corp (`TM`)
+
+Note that we have also included `SPY`, the SP500 ETF (Exchange Traded Fund), in order to have a benchmark of the rest of the markets to better evaluate the performance of our chosen stocks.
+
+
+```{r get_price_data, message=FALSE, warning=FALSE, cache=TRUE}
+
+myStocks <- c("GM","F","HMC","FCAU","TSLA","RACE", "TM","SPY" ) %>%
+  tq_get(get  = "stock.prices",
+         from = "2011-01-01",
+         to   = "2020-08-31") %>%
+  group_by(symbol) 
+
+glimpse(myStocks) # examine the structure of the resulting data frame
+
+```
+
+Lorenzo loves three things: Italy, Cars and Money. Thus, I immediately start the Financial Performance with analyzing the returns of each chosen stock. Before continuing, we have to notice that the `myStocks` dataframe has a continuous variable, date. Hence, we first want to calculate daily and monthly returns (given the adjusted closing prices) to give an order of magnitude to our results.
+
+Let's see how to do that:
+
+```{r calculate_returns, message=FALSE, warning=FALSE, cache=TRUE}
+#calculate daily returns
+myStocks_returns_daily <- myStocks %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "daily", 
+               type       = "log",
+               col_rename = "daily_returns",
+               cols = c(nested.col))  
+
+#calculate monthly  returns
+myStocks_returns_monthly <- myStocks %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "monthly", 
+               type       = "arithmetic",
+               col_rename = "monthly_returns",
+               cols = c(nested.col)) 
+
+#calculate yearly returns
+myStocks_returns_annual <- myStocks %>%
+  group_by(symbol) %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "yearly", 
+               type       = "arithmetic",
+               col_rename = "yearly_returns",
+               cols = c(nested.col))
+```
+
+
+To get a feeling for the numbers, let's summarise monthly returns for each of the stocks and the `SPY` ETF:
+
+```{r summarise_monthly_returns}
+
+myStocks_returns_monthly_summary_kable <- myStocks_returns_monthly %>% 
+  group_by(symbol) %>% 
+  summarise(min = min(monthly_returns), 
+            median = median(monthly_returns), 
+            max = max(monthly_returns), 
+            mean = mean(monthly_returns), 
+            sd = sd(monthly_returns)) %>% # calculate summary statistics for monthly returns by stock
+  custom_kbl(caption = "Summary statistics for Automotive Manufacturers")
+
+
+myStocks_returns_monthly_summary_kable
+
+myStocks_returns_monthly_summary <- myStocks_returns_monthly %>% 
+  group_by(symbol) %>% 
+  summarise(min = min(monthly_returns), 
+            median = median(monthly_returns), 
+            max = max(monthly_returns), 
+            mean = mean(monthly_returns), 
+            sd = sd(monthly_returns)) # calculate summary statistics for monthly returns by stock
+
+
+```
+
+
+From this nice table we should be able to receive the first insights:
+
+- Tesla and Fiat Crysler should be teh riskier options since they have the largest SD
+- The same stocks should also have the highest returns as they have the highest mean
+
+This is no surprise, because as usual, the highest risk for the highest return.
+
+To get an even better feeling, let's also visualize the distribution of monthly returns for each of the stocks:
+
+```{r density_monthly_returns}
+
+myStocks_returns_monthly %>% 
+  filter(symbol != "SPY") %>% # only display density of the stocks (not the ETF)
+  ggplot(aes(x = monthly_returns, fill = symbol)) + # add some color (fill) just for fun
+  geom_density() + 
+  facet_wrap(~symbol, nrow = 2) + # create a density plot for each stock
+  labs(title = "Distribution of monthly returns per stock", 
+       x = "monthly returns") +
+  theme(legend.position = "none") # show no legend
+
+```
+We can see that deviation from 0.0 is strongest for Tesla (`TSLA`). Hence, the stock is highly volatile and thus the riskiest.
+Opposed to this, the stock of Toyota Motor (`TM`) is quite steady, with only small changes in monthly return. Hence, this stock
+is the least risky.
+
+One other way of looking at this in approximate terms is to look at the height of the curve. The highest the curve, the greatest number of observations will be close to the mean and, thus, less **volatile**.
+
+However, it is not only about risk, but also about returns. Hence, let's plot the risk/return profiles of our stocks!
+
+```{r risk_return_plot}
+myStocks_returns_monthly_summary %>% 
+  ggplot(aes(x=sd, y = mean, label = symbol)) +
+  geom_point(aes(colour = symbol), size = 4) + # make points a little bigger
+  geom_smooth(method = lm, se = FALSE, group = 0) + # add a risk-return line
+  ggrepel::geom_text_repel(aes(colour = symbol)) + # add the stock names as labels to the points
+  labs(title = 'Risk/Return profile of stocks', 
+       x = 'Risk (stdev of monthly returns)', 
+       y ="Average monthly return") +
+  theme_bw() + # use a nice theme
+  scale_x_continuous(labels = scales::percent) + # display x values as percentages
+  scale_y_continuous(labels = scales::percent) + # display y values as percentages
+  theme(legend.position = "none") # show no legend
+```
+
+Our assumptions is confirmed: The higher the risk, the higher the return. But the most important thing when looking at stocks is the **Proportion** of return on the risk. For this specific reason I've created a regression line to compare the quality of the Car Manufacturer's stocks in terms of returns per their respective risks.
+
+The *main results* are as follows:
+
+- Tesla is by far the most risky asset and, not surprisingly, the one with the highest average monthly return
+- `SPY` (the SP500), `RACE` (Ferrari) and `TSLA` (Tesla) seem to be above the line by about the same distance (i.e. they are better than the average for that risk by the same amount). On the other hand `TM` (Toyota) seems less attractive than the previously mentioned stocks, since is closer to the line.
+- `HMC` (Honda Motor Company), `GM` (General Motors) and `FCAU` (Fiat Crysler Automobiles) are similar in attractiveness, whilst `F` (Ford Motor) is the worst of the bunch having the lowest (even negative) returns.
+- Nice to notice that SPY has the smallest risk (given by the nature of being a portfolio), with good average monthly returns.
+- Lastly, neither myself nor Lorenzo were right. The two italian companies (even if Fiat has now a Canadian branch) are one above and one below the line, indicating contrasting performances. I guess I will not receive my Ferrari, but it was anice journey in getting to the final outcome.
+

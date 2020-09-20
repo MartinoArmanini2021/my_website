@@ -92,10 +92,10 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "The first "
-      subtitle = "By ModernDrive"
+      title = "The NYSE Car Index"
+      subtitle = "Car Manufacturers one against the other"
       image = "pic01.jpg"
-      url = "blogs/aliquam"
+      url = "projects/Car_Manufacturers"
 
     [[params.tiles.showcase]]
       title = "Project 1"
@@ -103,11 +103,11 @@ disqusShortname = ""
       image = "pic06.jpg"
       url = "blogs/blog5"
 
-#    [[params.tiles.showcase]]
-#     title = "Magna - Project 3"
-#     subtitle = "Chap 5"
-#     image = "pic04.jpg"
-#     url = "projects/Project3"
+    [[params.tiles.showcase]]
+    title = "Magna - Project 3"
+     subtitle = "Chap 5"
+     image = "pic04.jpg"
+     url = "projects/Project3"
 
 #    [[params.tiles.showcase]]
 #      title = "Ipsum"
