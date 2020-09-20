@@ -10,6 +10,7 @@ keywords: ""
 slug: blog3
 title: What pay discrimination looks like, for real
 ---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
